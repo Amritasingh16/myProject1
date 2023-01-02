@@ -1,15 +1,11 @@
 const authorSchema = new mongoose.Schema({
     fname: {
        type: String,
-       lowercase: true,
-       uppercase: true,
        required: true,
  
     },
     lname: {
        type: String,
-       lowercase: true,
-       uppercase: true,
        required: true,
     },
     title: {
