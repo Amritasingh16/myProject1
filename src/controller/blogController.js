@@ -1,4 +1,4 @@
-const blogModel = require("../models/blogModel")
+const blogModel= require("../models/blogModel")
 
 const createBlog = async function (req, res) {
     try {
@@ -44,5 +44,4 @@ const createBlog = async function (req, res) {
         return res.status(500).send({ status: false, err: err.message });
     }
 };
-
-module.exports.createBlog = createBlog
+module.exports.createBlog=createBlog
