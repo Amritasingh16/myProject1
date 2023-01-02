@@ -1,4 +1,14 @@
 {
+  "name": "src",
+  "version": "1.0.0",
+  "description": "Backend cohort for Californium(Nov 2022 - Mar 2023)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^6.8.2",
