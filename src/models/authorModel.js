@@ -3,8 +3,6 @@ const authorSchema = new mongoose.Schema({
        type: String,
        lowercase: true,
        uppercase: true,
-       minlength: 2,
-       maxlength: 20,
        required: true,
  
     },
@@ -12,8 +10,6 @@ const authorSchema = new mongoose.Schema({
        type: String,
        lowercase: true,
        uppercase: true,
-       minlength: 2,
-       maxlength: 20,
        required: true,
     },
     title: {
