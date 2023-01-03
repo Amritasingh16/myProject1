@@ -46,4 +46,66 @@ const createBlog = async function (req, res) {
         return res.status(500).send({ status: false, err: err.message });
     }
 };
+
+const getBlogs = async function (req, res) {
+    try {
+        let data = req.query;
+        let filter = {
+            isdeleted: false,
+            isPublished: true,
+            ...data,
+        };
+
+        const { category, subcategory, tags, authorId } = data;
+        if (authorId) {
+            console.log(authorId)
+            let verifyAuthorId = await blogModel.find({ authorId: authorId });
+            if (verifyAuthorId.length == 0) {
+                return res
+                    .status(400)
+                    .send({ status: false, msg: "No blogs in this AuthorId exist" });
+            }
+        }
+        if (category) {
+            let verifyCategory = await blogModel.find({ category: category });
+            if (verifyCategory.length == 0) {
+                return res
+                    .status(400)
+                    .send({ status: false, msg: "No blogs in this category exist" });
+            }
+        }
+
+        if (tags) {
+            let verifyTags = await blogModel.find({ tags: tags });
+            if (verifyTags.length == 0) {
+                return res
+                    .status(400)
+                    .send({ status: false, msg: "No blogs in this tags exist" });
+            }
+        }
+
+        if (subcategory) {
+            let verifySubcategory = await blogModel.find({ subcategory: subcategory });
+            if (!verifySubcategory) {
+                return res
+                    .status(400)
+                    .send({ status: false, msg: "No blogs in this Subcategory exist" });
+            }
+        }
+
+        let getSpecificBlogs = await blogModel.find(filter);
+
+        if (getSpecificBlogs.length == 0) {
+            return res
+                .status(400)
+                .send({ status: false, data: "No blogs can be found" });
+        } else {
+            return res.status(200).send({ status: true, data: getSpecificBlogs });
+        }
+    } catch (error) {
+        res.status(500).send({ status: false, err: error.message});
+}
+};
+
 module.exports.createBlog=createBlog
+module.exports.getBlogs=getBlogs
