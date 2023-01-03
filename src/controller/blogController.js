@@ -1,4 +1,6 @@
 const blogModel= require("../models/blogModel")
+const validator=require('../middleWare/myMiddleware')
+const authorModel = require("../models/authorModel");
 
 const createBlog = async function (req, res) {
     try {
