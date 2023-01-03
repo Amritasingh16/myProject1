@@ -183,6 +183,23 @@ const deleteByQuery = async function (req, res) {
       return   res.status(500).send({ message: "Failed", error: error.message });
     }
 }
+const deleteBlog = async function (req, res) {
+
+    try {
+        let blogId = req.params.blogId
+
+        let deleteBlog = await blogModel.findByIdAndUpdate({ _id: blogId }, { $set: { isDeleted: true } }, { new: true })
+        res.status(200).send({ status: true, msg: deleteBlog })
+        
+        if (!deleteBlog) res.status(404).send({ status: false, msg: "Blogs are not found" })
+    }
+
+     catch (error) {
+        return res.status(500).send({ status: false, msg: error.message});}
+}
+
+
+
  
 module.exports.updateBlog=updateBlog
 module.exports.createBlog=createBlog
