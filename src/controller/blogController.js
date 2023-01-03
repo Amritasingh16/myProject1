@@ -130,6 +130,59 @@ const updateBlog= async function (req, res){
     }
     
 }
+const deleteByQuery = async function (req, res) {
+    try {
+        let queryData =(req.query.category || req.query.authorId || req.query.tags || req.query.subCategory)
+
+        if (!queryData){
+            return res.status(404).send({status:false,msg:"You can only Delete blog  by category, authorid, tag name, subcategory name,or unpublished  blog"})
+        } else
+        {
+       
+            let authorId = req.query.authorId
+            let category = req.query.category
+            let tags = req.query.tags
+            let subcategory = req.query.subcategory
+            let isPublished = req.query.isPublished
+            let obj = {};
+            if (authorId) {
+                obj.authorId = authorId;
+            }
+            if (category) {
+                obj.category = category
+            }
+
+            if (tags) {
+                obj.tags = tags
+            }
+            if (subcategory) {
+                obj.subcategory = subcategory
+            }
+            if (isPublished) {
+                obj.isPublished = isPublished
+            }
+            obj.isDeleted = false
+            obj.isPublished =true
+
+            let data = await blogModel.find(obj);
+          
+        
+        if (data) {
+            await blogModel.updateMany({ obj }, { isDeleted: true, deletedAt: Date.now() } )
+
+                return res.status(200).send({ status: true, msg: "Blog Deleted succesfully" })
+        }
+
+        else {
+               
+            } return res.status(404).send({ status: false, msg: "The given data is Invalid or blog is already deleted" });
+        
+        }
+    }
+    catch (error) {
+      return   res.status(500).send({ message: "Failed", error: error.message });
+    }
+}
  
 module.exports.updateBlog=updateBlog
 module.exports.createBlog=createBlog
