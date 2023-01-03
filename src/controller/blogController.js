@@ -106,6 +106,31 @@ const getBlogs = async function (req, res) {
         res.status(500).send({ status: false, err: error.message});
 }
 };
-
+const updateBlog= async function (req, res){
+    try{
+    let blogId= req.params.blogId
+    let modifyData= req.body
+    let output= await blogModel.findOneAndUpdate({_id:blogId,isDeleted:false});
+     if(!output){
+        return res.status(404).send({status: false,data:"Page not Found"})
+     }
+     if(modifyData.tags){
+            modifyData.tags= output.tags.concat(modifyData.tags)
+     }
+     if(modifyData.subcategory){
+           modifyData.subcategory= output.subcategory.concat(modifyData.subcategory)
+     }
+     if(modifyData.isPublished===true){
+        modifyData.publishedAt= moment.format()
+     }
+     let updateData= await blogModel.findOneAndUpdate({_id:blogId},{$set:modifyData},{new:true})
+       res.status(200).send({status: true, data: updateData})
+    }catch(error){
+        res.status(500).send({ status: false, msg: error.message })
+    }
+    
+}
+ 
+module.exports.updateBlog=updateBlog
 module.exports.createBlog=createBlog
 module.exports.getBlogs=getBlogs
