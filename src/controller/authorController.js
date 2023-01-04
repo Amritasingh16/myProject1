@@ -69,4 +69,16 @@ const createAuthor = async function (req, res) {
         return res.status(500).send({ status: false, msg: err.message});
 }
 };
+const login= async function(req, res){
+    let email= req.body.email
+    let password= req.body.password
+    let userAccount= await authorModel.findOne({email:email,password:password})
+    if(!userAccount){
+        return res.status(400).send({status:false, msg:"Email and Password is required"})
+    }
+    let token= jwt.sign({authorId:userAccount._id},"group-18-key")
+    res.setHeader("x-api-key",token)
+    res.status(200).send({ status:true, data: {token} })
+}
 module.exports.createAuthor=createAuthor
+module.exports.login=login
