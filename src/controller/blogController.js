@@ -130,6 +130,21 @@ const updateBlog= async function (req, res){
     }
     
 }
+const deleteBlog = async function (req, res) {
+
+    try {
+        let blogId = req.params.blogId
+
+        let deleteBlog = await blogModel.findByIdAndUpdate({ _id: blogId }, { $set: { isDeleted: true } }, { new: true })
+        res.status(200).send({ status: true, msg: deleteBlog })
+        
+        if (!deleteBlog) res.status(404).send({ status: false, msg: "Blogs are not found" })
+    }
+
+     catch (error) {
+        return res.status(500).send({ status: false, msg: error.message});}
+}
+
 const deleteByQuery = async function (req, res) {
     try {
         let queryData =(req.query.category || req.query.authorId || req.query.tags || req.query.subCategory)
@@ -183,20 +198,6 @@ const deleteByQuery = async function (req, res) {
       return   res.status(500).send({ message: "Failed", error: error.message });
     }
 }
-const deleteBlog = async function (req, res) {
-
-    try {
-        let blogId = req.params.blogId
-
-        let deleteBlog = await blogModel.findByIdAndUpdate({ _id: blogId }, { $set: { isDeleted: true } }, { new: true })
-        res.status(200).send({ status: true, msg: deleteBlog })
-        
-        if (!deleteBlog) res.status(404).send({ status: false, msg: "Blogs are not found" })
-    }
-
-     catch (error) {
-        return res.status(500).send({ status: false, msg: error.message});}
-}
 
 
 
@@ -204,3 +205,5 @@ const deleteBlog = async function (req, res) {
 module.exports.updateBlog=updateBlog
 module.exports.createBlog=createBlog
 module.exports.getBlogs=getBlogs
+module.exports.deleteByQuery=deleteByQuery
+module.exports.deleteBlog=deleteBlog
