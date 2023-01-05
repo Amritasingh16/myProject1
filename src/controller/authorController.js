@@ -76,7 +76,7 @@ const login= async function(req, res){
     if(!userAccount){
         return res.status(400).send({status:false, msg:"Email and Password is required"})
     }
-    let token= jwt.sign({authorId:userAccount._id},"group-18-key")
+    let token= jwt.sign({authorId:userAccount._id.toString()},"group-18-key")
     res.setHeader("x-api-key",token)
     res.status(200).send({ status:true, data: {token} })
 }

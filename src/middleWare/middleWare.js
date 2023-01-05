@@ -1,4 +1,5 @@
 const jwt= require("jsonwebtoken")
+const blogModel= require("../models/blogModel")
 
 
 const authentication = function (req, res, next) {
@@ -8,6 +9,7 @@ const authentication = function (req, res, next) {
         if (!token) return res.status(400).send({ status: false, msg: "token must be present" });
 
         let decodedToken = jwt.verify(token, "group-18-key");
+        req.decodedToken= decodedToken
 
         if (!decodedToken) return res.status(400).send({ status: false, msg: "token is invalid" });
         else {
@@ -21,24 +23,16 @@ const authentication = function (req, res, next) {
 }
 
 
-const validation= async function( req, res, next){
-    let userModify= req.params.authorId
-    let userLogged= req.validToken
-    if(userModify!=userLogged.userId){
-        return res.send({ status: false, data: "user not Identified"})
-    }  next()
 
-}
 
 
 const authorisation = async function (req, res, next) {
     try{
         
         let blogId = req.params.blogId
-        let authorLoggedIn =decodedToken.authorId
+        let authorLoggedIn =req.decodedToken.authorId
     
-        let findBlog = await blogModel.findById(blogId)
-
+       let findBlog= await blogModel.findById(blogId)
         if(!findBlog)
         {return res.status(404).send("status:false, msg: Author's blog not found")}
         let authorId = findBlog.authorId
