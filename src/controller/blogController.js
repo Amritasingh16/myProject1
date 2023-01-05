@@ -110,7 +110,7 @@ const updateBlog= async function (req, res){
     try{
     let blogId= req.params.blogId
     let modifyData= req.body
-    let output= await blogModel.findOneAndUpdate({_id:blogId,isDeleted:false});
+    let output= await blogModel.findOne({_id:blogId,isDeleted:false});
      if(!output){
         return res.status(404).send({status: false,data:"Page not Found"})
      }
