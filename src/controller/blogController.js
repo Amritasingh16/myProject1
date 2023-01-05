@@ -183,14 +183,14 @@ const deleteByQuery = async function (req, res) {
           
         
         if (data) {
-            await blogModel.updateMany({ obj }, { isDeleted: true, deletedAt: Date.now() } )
+          await blogModel.updateMany({ obj }, { isDeleted: true, deletedAt: Date.now() } )
 
-                return res.status(200).send({ status: true, msg: "Blog Deleted succesfully" })
+                return res.status(200).send({ status: true, msg: "Blog Deleted succesfully"})
         }
 
         else {
                
-            } return res.status(404).send({ status: false, msg: "The given data is Invalid or blog is already deleted" });
+            } return res.status(404).send({ status: false, msg: "The given data is Invalid or blog is already deleted"});
         
         }
     }
