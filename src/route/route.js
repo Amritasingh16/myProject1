@@ -12,7 +12,7 @@ router.post("/blogs",middleware.authentication, BlogCoontroller.createBlog)
 
 router.post("/login",authorController.login)
 
-router.get('/getBlogs',middleware.authentication,middleware.authorisation,BlogCoontroller.getBlogs)
+router.get('/getBlogs',middleware.authentication,BlogCoontroller.getBlogs)
 
 router.put("/blogs/:blogId",middleware.authentication,middleware.authorisation,BlogCoontroller.updateBlog)
 

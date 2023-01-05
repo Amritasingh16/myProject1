@@ -20,6 +20,17 @@ const authentication = function (req, res, next) {
     }
 }
 
+
+const validation= async function( req, res, next){
+    let userModify= req.params.authorId
+    let userLogged= req.validToken
+    if(userModify!=userLogged.userId){
+        return res.send({ status: false, data: "user not Identified"})
+    }  next()
+
+}
+
+
 const authorisation = async function (req, res, next) {
     try{
         
