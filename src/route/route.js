@@ -3,12 +3,10 @@ const router=express.Router()
 const authorController=require("../controller/authorController")
 const BlogCoontroller=require("../controller/blogController")
 const middleware=require("../middleWare/middleWare")
-
 //===========================================PROJECT 1===================================//
-
 router.post("/authors", authorController.createAuthor)
 
-router.post("/blogs",middleware.authentication, BlogCoontroller.createBlog)
+router.post("/blogs", BlogCoontroller.createBlog)
 
 router.post("/login",authorController.login)
 
