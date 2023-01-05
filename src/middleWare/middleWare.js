@@ -23,10 +23,10 @@ const authentication = function (req, res, next) {
 
 
 const validation= async function( req, res, next){
-    let userModify= req.params.authorId
+    let userModify= req.params.userId
     let userLogged= req.validToken
-    if(userModify!=userLogged.authorId){
-        return res.send({ status: false, data: "author not Identified"})
+    if(userModify!=userLogged.userId){
+        return res.send({ status: false, data: "user not Identified"})
     }  next()
 
 }
