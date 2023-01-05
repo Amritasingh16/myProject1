@@ -77,7 +77,7 @@ example of a query url: blogs?filtername=filtervalue&f2=fv2
 - To test these apis create a new collection in Postman named Project 1 Blogging 
 - Each api should have a new request in this collection
 - Each request in the collection should be rightly named. Eg Create author, Create blog, Get blogs etc
-- Each member of each team should have their tests in running state
+- Each member of each team should have their tests in running state.
 
 
 Refer below sample
