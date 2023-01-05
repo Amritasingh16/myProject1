@@ -12,11 +12,11 @@ router.post("/login",authorController.login)
 
 router.get('/getBlogs',middleware.authentication,BlogCoontroller.getBlogs)
 
-router.put("/blogs/:blogId",middleware.authentication,middleware.authorisation,BlogCoontroller.updateBlog)
+router.put("/blogs/:blogId",middleware.authentication,middleware.authorization,BlogCoontroller.updateBlog)
 
-router.delete("/blogs/:blogId",middleware.authentication,middleware.authorisation,BlogCoontroller.deleteBlog)
+router.delete("/blogs/:blogId",middleware.authentication,middleware.authorization,BlogCoontroller.deleteBlog)
 
-router.delete("/blogs",middleware.authentication,middleware.authorisation,BlogCoontroller.deleteByQuery)
+router.delete("/blogs",middleware.authentication,middleware.authorization,BlogCoontroller.deleteByQuery)
 
 
 module.exports=router
