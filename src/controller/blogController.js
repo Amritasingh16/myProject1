@@ -1,3 +1,4 @@
+const mongoose= require("mongoose")
 const blogModel= require("../models/blogModel")
 const validator=require('../middleWare/myMiddleware')
 const authorModel = require("../models/authorModel");
@@ -12,7 +13,7 @@ const createBlog = async function (req, res) {
                 .send({ status: false, message: "All Keys are Mandatory" });
         }
 
-        const { title, body, authorId, category } = data;
+        const { title, body, authorId, category, isPublished } = data;
 
         if (!title) {
             return res.status(400).send({ status: false, msg: "title is required" });
@@ -34,10 +35,13 @@ const createBlog = async function (req, res) {
                 .send({ status: false, msg: "category title is required" });
         }
         const author = await authorModel.findById(authorId);
-        if (!author) {
+        if (author!==req.authorId) {
             return res
                 .status(400)
-                .send({ status: false, msg: "author does not exist" });
+                .send({ status: false, msg: "Authorisation failed" });
+        }
+        if(isPublished=== true){
+            publishedAt= Date.now()
         }
 
         const savedData = await blogModel.create(data);

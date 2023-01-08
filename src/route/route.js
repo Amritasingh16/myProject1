@@ -10,7 +10,7 @@ router.post("/blogs", BlogCoontroller.createBlog)
 
 router.post("/login",authorController.login)
 
-router.get('/getBlogs',middleware.authentication,BlogCoontroller.getBlogs)
+router.get("/getBlogs",middleware.authentication,BlogCoontroller.getBlogs)
 
 router.put("/blogs/:blogId",middleware.authentication,middleware.authorization,BlogCoontroller.updateBlog)
 

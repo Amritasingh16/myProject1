@@ -39,7 +39,7 @@ const createAuthor = async function (req, res) {
             }
         }
 
-        if (validator.isValidEmail(email)) {
+        if (!validator.isValidEmail(email)) {
             return res
                 .status(400)
                 .send({ status: false, msg: "Please Enter Valid Email Address" });
@@ -82,3 +82,19 @@ const login= async function(req, res){
 }
 module.exports.createAuthor=createAuthor
 module.exports.login=login
+
+
+
+
+
+const Author = async function (req, res ){
+ try{   
+
+ let data= req.body
+ let result= await authorModel.create(data)
+  res.status(200).send({status: true, data: result})
+ }catch(err){
+    res.status(500).send({status: false, msg: err.message})
+ } 
+}
+module.exports.Author=Author

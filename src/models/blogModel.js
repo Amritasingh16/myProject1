@@ -20,15 +20,18 @@ const blogSchema = new mongoose.Schema(
         },
         tags: {
         type: [String],
+        lowercase: true
         },
 
         category: {
             type: String,
-            required: true
+            required: true,
+            lowercase: true
         },
         subcategory:
         {
-            type: [String]
+            type: [String],
+            lowercase: true
 
         },
         isPublished: {
@@ -37,8 +40,7 @@ const blogSchema = new mongoose.Schema(
         },
 
         publishedAt: {
-            type: Date,
-            default: Date.now()
+            type: Date
         },
 
         isDeleted: {
@@ -46,8 +48,7 @@ const blogSchema = new mongoose.Schema(
             default: false
         },
         deletedAt: {
-            type: Date,
-            default: Date.now()
+            type: Date
         },
     },
     { timestamps: true }
